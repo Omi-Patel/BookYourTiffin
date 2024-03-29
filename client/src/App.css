@@ -1,0 +1,10 @@
+.menu {
+  /* background-color: slategray; */
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.menuText {
+  margin: 6px;
+}
