@@ -1,8 +1,11 @@
 import { Button } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const Signin = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="h-full">
       <section>
@@ -106,7 +109,7 @@ const Signin = () => {
             </form>
             <div className="mt-6 space-y-3">
               <Button
-              className="w-full font-semibold"
+                className="w-full font-semibold"
                 variant="flat"
                 color="primary"
                 // className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
@@ -124,7 +127,7 @@ const Signin = () => {
                 Sign in with Google
               </Button>
               <Button
-              color="primary"
+                color="primary"
                 variant="flat"
                 className="w-full font-semibold"
                 // className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
