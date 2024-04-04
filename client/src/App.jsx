@@ -13,6 +13,7 @@ import Footer from "./components/footer/Footer";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BookNow from "./components/menu/BookNow";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/menu" element={<BookNow />} />
+
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/signin" element={<Signin />} />
