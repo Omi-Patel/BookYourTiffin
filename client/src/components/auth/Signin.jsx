@@ -1,8 +1,42 @@
 import { Button } from "@nextui-org/react";
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //navigate
+  const navigate = useNavigate();
+
+  // loginHandle function
+  const loginHandle = async () => {
+    const response = await fetch(`http://localhost:3000/auth/login`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    //receiving response
+    const loginData = await response.json();
+    // console.log(loginData);
+
+    //condition
+    if (loginData.error) {
+      toast.error(loginData.error);
+    } else {
+      navigate("/");
+      toast.success(loginData.success);
+      localStorage.setItem("token", loginData.token);
+    }
+
+    setEmail("");
+    setPassword("");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -41,6 +75,7 @@ const Signin = () => {
             </p>
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
+                {/* Input 1 - Email  */}
                 <div>
                   <label
                     htmlFor=""
@@ -53,9 +88,13 @@ const Signin = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     ></input>
                   </div>
                 </div>
+
+                {/* Input 2 - Password  */}
                 <div>
                   <div className="flex items-center justify-between">
                     <label
@@ -77,11 +116,14 @@ const Signin = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     ></input>
                   </div>
                 </div>
                 <div className="">
                   <Button
+                    onClick={loginHandle}
                     color="primary"
                     variant="shadow"
                     type="button"

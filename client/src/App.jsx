@@ -9,6 +9,11 @@ import Signup from "./components/auth/Signup";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
+//
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <Router>
@@ -23,6 +28,19 @@ function App() {
         <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Router>
   );
 }

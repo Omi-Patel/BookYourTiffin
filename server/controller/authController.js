@@ -1,5 +1,9 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+
+// Signup Controller
 const signupController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -23,11 +27,17 @@ const signupController = async (req, res) => {
       return res.status(400).json({ error: "User Already Exists..!" });
     }
 
+    // Generate Salt
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash Password
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     // save user into database
     const newUser = await User({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     await newUser.save();
@@ -40,9 +50,53 @@ const signupController = async (req, res) => {
   }
 };
 
+
+
+// Login Controller
 const loginController = async (req, res) => {
-  console.log("Login");
-  res.send("Login");
+  // Data from Body
+  const { email, password } = req.body;
+
+  try {
+    // validation
+    if (!email || !password) {
+      return res.status(400).json({ error: "Please Provide the Data..!" });
+    }
+
+    // email validation
+    if (!email.includes("@")) {
+      return res.status(400).json({ error: "Invalid Credentials..!" });
+    }
+
+    // find unique user with email
+    const user = await User.findOne({ email });
+    console.log(user);
+
+    // if user not found
+    if (!user) {
+      return res.status(400).json({ error: "User Not Found..!" });
+    }
+
+    // compare user's password with hashedPassword using bcrypt.compare()
+    const doMatch = await bcrypt.compare(password, user.password);
+    console.log("Password Matched : " + doMatch);
+
+    // if password matched then generate token for user
+    if (doMatch) {
+      const token = jwt.sign({ userId: user.id }, "" + process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
+
+      res.status(201).json({ token, success: "Login Successfull!" });
+    } else {
+      res.status(400).json({ error: "Invalid Email or Password..!" });
+    }
+
+    // end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
 };
 
 module.exports = {

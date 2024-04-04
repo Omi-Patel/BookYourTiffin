@@ -1,8 +1,47 @@
 import { Button } from "@nextui-org/react";
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // navigation
+  const navigate = useNavigate();
+
+  // signup function
+  const handleSubmit = async () => {
+    // send data through backend API
+    const response = await fetch(`http://localhost:3000/auth/signup`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const signupData = await response.json();
+    // console.log(signupData);
+
+    // checking condition
+
+    if (signupData.error) {
+      toast.error(signupData.error);
+    } else {
+      toast.success(signupData.success);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/signin");
+    }
+
+    // end of handlesubmin
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -40,22 +79,27 @@ const Signup = () => {
             </p>
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
+                {/* Input 1 : Name  */}
                 <div>
                   <label
                     htmlFor="name"
                     className="text-base font-medium text-gray-900"
                   >
-                    Full Name
+                    Your Name
                   </label>
                   <div className="mt-2">
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
-                      placeholder="Full Name"
+                      placeholder="Your Name"
                       id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     ></input>
                   </div>
                 </div>
+
+                {/* Input 2 : Email  */}
                 <div>
                   <label
                     htmlFor="email"
@@ -69,9 +113,13 @@ const Signup = () => {
                       type="email"
                       placeholder="Email"
                       id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     ></input>
                   </div>
                 </div>
+
+                {/* Input 3 - Password  */}
                 <div>
                   <div className="flex items-center justify-between">
                     <label
@@ -87,11 +135,14 @@ const Signup = () => {
                       type="password"
                       placeholder="Password"
                       id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     ></input>
                   </div>
                 </div>
                 <div className="">
                   <Button
+                    onClick={handleSubmit}
                     color="primary"
                     variant="shadow"
                     type="button"
