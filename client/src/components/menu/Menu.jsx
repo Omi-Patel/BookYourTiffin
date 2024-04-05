@@ -94,17 +94,15 @@ const Menu = () => {
                   #Laptop
                 </span>
               </div>
-              <button
+              <Button
                 type="button"
-                className="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                className="mt-4 w-full   px-0 rounded-full py-1.5  font-semibold text-white shadow-sm hover:bg-blue/80 tracking-wider text-[16px]"
               >
-                Read
-              </button>
+                <NavLink to={"/booknow"} className="bg-blue-600 w-full py-4">Book Now!</NavLink>
+              </Button>
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   );

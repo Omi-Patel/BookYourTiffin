@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Home from "./components/home/Home";
 import About from "./components/about/About";
 import Menu from "./components/menu/Menu";
@@ -14,6 +19,8 @@ import Footer from "./components/footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookNow from "./components/menu/BookNow";
+import Dashboard from "./components/menu/Dashboard";
+import CreateMenu from "./components/menu/CreateMenu";
 
 function App() {
   return (
@@ -23,7 +30,32 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/menu" element={<BookNow />} />
+        <Route
+          path="/booknow"
+          element={
+            <ProtectedRoute>
+              <BookNow />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRouteForAdmin>
+              <Dashboard />
+            </ProtectedRouteForAdmin>
+          }
+        />
+
+        <Route
+          path="/createmenu"
+          element={
+            <ProtectedRouteForAdmin>
+              <CreateMenu />
+            </ProtectedRouteForAdmin>
+          }
+        />
 
         <Route path="/contact" element={<Contact />} />
 
@@ -49,3 +81,21 @@ function App() {
 }
 
 export default App;
+
+export const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return children;
+  } else {
+    return <Navigate to={"/signin"} />;
+  }
+};
+
+export const ProtectedRouteForAdmin = ({ children }) => {
+  const userEmail = localStorage.getItem("userEmail");
+  if (userEmail === import.meta.env.VITE_ADMIN_LOGIN) {
+    return children;
+  } else {
+    return <Navigate to={"/signin"} />;
+  }
+};

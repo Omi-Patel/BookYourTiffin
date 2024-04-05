@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 // Signup Controller
 const signupController = async (req, res) => {
   try {
@@ -50,8 +49,6 @@ const signupController = async (req, res) => {
   }
 };
 
-
-
 // Login Controller
 const loginController = async (req, res) => {
   // Data from Body
@@ -87,7 +84,7 @@ const loginController = async (req, res) => {
         expiresIn: "7d",
       });
 
-      res.status(201).json({ token, success: "Login Successfull!" });
+      res.status(201).json({ user, token, success: "Login Successfull!" });
     } else {
       res.status(400).json({ error: "Invalid Email or Password..!" });
     }
@@ -99,7 +96,21 @@ const loginController = async (req, res) => {
   }
 };
 
+// Get All Users from DB
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find();
+    // console.log(allUsers);
+    res.send(allUsers);
+    // console.log(allUsers.length);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
+
 module.exports = {
   signupController,
   loginController,
+  getAllUsers,
 };

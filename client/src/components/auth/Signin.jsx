@@ -22,7 +22,7 @@ const Signin = () => {
 
     //receiving response
     const loginData = await response.json();
-    // console.log(loginData);
+    console.log(loginData);
 
     //condition
     if (loginData.error) {
@@ -30,7 +30,8 @@ const Signin = () => {
     } else {
       navigate("/");
       toast.success(loginData.success);
-      localStorage.setItem("token", loginData.token);
+      localStorage.setItem("token", loginData?.token);
+      localStorage.setItem("userEmail", loginData?.user?.email);
     }
 
     setEmail("");

@@ -22,6 +22,8 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const [login, setLogin] = useState(false);
+  const [adminLogin, setAdminLogin] = useState(false);
+
   const navigate = useNavigate();
 
   // const menuItems = ["Home", "About", "Menu", "Contact"];
@@ -35,16 +37,30 @@ export default function App() {
     }
   };
 
+  // console.log(import.meta.env.VITE_ADMIN_LOGIN === 'admin@gmail.com');
+  // Admin Login
+  const onAdminLogin = () => {
+    if (
+      localStorage.getItem("userEmail") === import.meta.env.VITE_ADMIN_LOGIN
+    ) {
+      setAdminLogin(true);
+    } else {
+      setAdminLogin(false);
+    }
+  };
+
   // logout handle
   const logoutHandle = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
     toast.info("User Loggedout Successfully..!");
     // navigate("/");
   };
 
   useEffect(() => {
     onLogin();
-  }, [localStorage.getItem("token")]);
+    onAdminLogin();
+  }, [localStorage.getItem("token"), localStorage.getItem("userEmail")]);
 
   return (
     <Navbar
@@ -119,7 +135,7 @@ export default function App() {
           <NavbarMenuItem className="menuText">
             <NavLink
               to={"/menu"}
-              className="menu flex gap-2 items-center"
+              className="menu flex gap-2 items-center "
               onClick={() => setIsMenuOpen(false)}
             >
               <span>
@@ -140,6 +156,33 @@ export default function App() {
               <span>Menu</span>
             </NavLink>
           </NavbarMenuItem>
+
+          {/* Admin Login  */}
+          <div className=" rounded-xl">
+            {adminLogin ? (
+              <NavbarMenuItem className="menuText">
+                <NavLink
+                  to={"/dashboard"}
+                  className="menu flex gap-2 items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                  </svg>
+
+                  <span>Admin</span>
+                </NavLink>
+              </NavbarMenuItem>
+            ) : (
+              ""
+            )}
+          </div>
+
           <NavbarMenuItem className="menuText">
             <NavLink
               to={"/contact"}
@@ -254,6 +297,7 @@ export default function App() {
             Menu
           </NavLink>
         </NavbarItem>
+
         <NavbarItem className="font-medium">
           <NavLink
             to={"/contact"}
@@ -274,6 +318,7 @@ export default function App() {
               <PopoverTrigger>
                 <div className="flex gap-4 items-center ">
                   <Avatar
+                    className="cursor-pointer"
                     showFallback
                     src="https://images.unsplash.com/broken"
                   />
@@ -308,6 +353,47 @@ export default function App() {
                             <span>Profile</span>
                           </Button>
 
+                          {/* Admin Login  */}
+                          <div className=" rounded-xl">
+                            {adminLogin ? (
+                              <Button
+                                color="primary"
+                                variant="flat"
+                                className=" font-medium  tracking-wider text-[16px] "
+                              >
+                                <NavLink
+                                  to={"/dashboard"}
+                                  className={({ isActive }) =>
+                                    isActive ? "text-[#594aff]" : ""
+                                  }
+                                  color="foreground"
+                                >
+                                  <div className="flex gap-2 items-center justify-center py-2 px-4  ">
+                                    <span>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span>Admin</span>
+                                  </div>
+                                </NavLink>
+                              </Button>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+
                           <Button
                             onClick={() => {
                               logoutHandle();
@@ -317,7 +403,7 @@ export default function App() {
                             color="danger"
                             className="px-0"
                           >
-                            <div className=" p-4 w-full flex gap-2 font-bold text-[16px] tracking-wide">
+                            <div className=" p-2  w-full flex justify-center items-center gap-2 font-bold text-[16px] tracking-wide">
                               <span>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
