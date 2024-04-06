@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
 
 const CreateMenu = () => {
+  const [dishName, setDishName] = useState("");
+
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
-  const [description, setDescription] = useState("");
+  const [special, setSpecial] = useState("");
+
+  const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
 
   // createMenu Handle
   const createMenuHandle = async () => {
+    // client side validation
+    if (!dishName || !item1 || !item2 || !image || !price) {
+      return toast.error("Please Provide All The Data..!");
+    }
+
     const response = await fetch(`http://localhost:3000/api/createmenu`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ item1, item2, description, price }),
+      body: JSON.stringify({ dishName, item1, item2, special, image, price }),
     });
 
     //receiving response
@@ -27,12 +36,18 @@ const CreateMenu = () => {
       toast.error(createdMenu.error);
     } else {
       toast.success(createdMenu.success);
+      setDishName("");
       setItem1("");
       setItem2("");
-      setDescription("");
+      setSpecial("");
+      setImage("");
       setPrice("");
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div>
@@ -59,6 +74,25 @@ const CreateMenu = () => {
 
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="item1"
+                    className="text-base font-medium text-gray-900"
+                  >
+                    Dish Name
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      type="text"
+                      placeholder="Chhole / Paneer"
+                      id="dishname"
+                      value={dishName}
+                      onChange={(e) => setDishName(e.target.value)}
+                    ></input>
+                  </div>
+                </div>
+
                 <div>
                   <label
                     htmlFor="item1"
@@ -99,19 +133,38 @@ const CreateMenu = () => {
 
                 <div>
                   <label
-                    htmlFor="desc"
+                    htmlFor="special"
                     className="text-base font-medium text-gray-900"
                   >
-                    Description
+                    Today's Special
                   </label>
                   <div className="mt-2">
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
-                      placeholder="Description"
-                      id="desc"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder="Gulab Jamun"
+                      id="special"
+                      value={special}
+                      onChange={(e) => setSpecial(e.target.value)}
+                    ></input>
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="img"
+                    className="text-base font-medium text-gray-900"
+                  >
+                    Dish Image
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      type="text"
+                      placeholder="Photo"
+                      id="img"
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
                     ></input>
                   </div>
                 </div>

@@ -1,13 +1,34 @@
 import { Button } from "@nextui-org/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Menu = () => {
+  const [menu, setMenu] = useState([]);
+
+  const getMenu = async () => {
+    try {
+      const resMenu = await fetch(`http://localhost:3000/api/getmenu`);
+
+      // response
+      const allMenu = await resMenu.json();
+      console.log(allMenu);
+
+      if (allMenu) {
+        setMenu(allMenu);
+      }
+
+      // end
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    getMenu();
   }, []);
   return (
-    <div className="h-screen">
+    <div className="h-full">
       {/* <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto w-full text-center md:max-w-2xl">
@@ -66,43 +87,61 @@ const Menu = () => {
         </div>
       </section> */}
 
-      <div className="flex flex-wrap m-6 gap-10 justify-center items-center">
+      <div className="flex flex-wrap m-16  gap-10 justify-center items-center">
         {/* Card  */}
-        <div className="">
-          <div className="w-[300px] rounded-md border-2">
-            <img
-              src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-              alt="Laptop"
-              className="h-[200px] w-full  object-cover p-2 rounded-xl overflow-hidden"
-            />
-            <div className="p-4">
-              <h1 className="inline-flex items-center text-lg font-semibold">
-                About Macbook
-              </h1>
-              <p className="mt-3 text-sm text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Excepturi, debitis?
-              </p>
-              <div className="mt-4">
-                <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-                  #Macbook
-                </span>
-                <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-                  #Apple
-                </span>
-                <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-                  #Laptop
-                </span>
+        {menu.map((menu, index) => (
+          <div className="bg-slate-200 rounded-lg" key={index}>
+            <div className="w-[300px] rounded-md border-2">
+              <img
+                src={menu.image}
+                alt="Laptop"
+                className="h-[200px] w-full  object-cover p-2 rounded-xl overflow-hidden"
+              />
+              <div className="p-4">
+                <h1 className="inline-flex items-center text-xl bg-slate-300 py-1 px-3 rounded-full font-bold tracking-wider">
+                  {menu.dishName}
+                </h1>
+                {/* <p className="mt-3 text-sm text-gray-600">
+                  {menu.item1}
+                </p>
+                <p className="mt-3 text-sm text-gray-600">
+                  {menu.item2}
+                </p> */}
+                <div className="mt-4">
+                  <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                    # {menu.item1}
+                  </span>
+                  <br />
+                  <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                    # {menu.item2}
+                  </span>
+                  <br />
+                  {/* special item */}
+                  {menu.special && (
+                    <span className="mb-2 mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                      + {menu.special}
+                    </span>
+                  )}
+                </div>
+
+                <p className="mt-3 text-md font-semibold text-gray-600">
+                  @ Price : {menu.price}
+                </p>
+                <Button
+                  type="button"
+                  className="mt-4 w-full   px-0 rounded-full py-1.5  font-semibold text-white shadow-sm hover:bg-blue/80 tracking-wider text-[16px]"
+                >
+                  <NavLink
+                    to={`/booknow/${menu._id}`}
+                    className="bg-blue-600 w-full py-4"
+                  >
+                    Book Now!
+                  </NavLink>
+                </Button>
               </div>
-              <Button
-                type="button"
-                className="mt-4 w-full   px-0 rounded-full py-1.5  font-semibold text-white shadow-sm hover:bg-blue/80 tracking-wider text-[16px]"
-              >
-                <NavLink to={"/booknow"} className="bg-blue-600 w-full py-4">Book Now!</NavLink>
-              </Button>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

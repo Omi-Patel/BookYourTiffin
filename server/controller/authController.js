@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 // Signup Controller
 const signupController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, contact } = req.body;
 
     // validation
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !contact) {
       return res.status(400).json({ error: "All Fields Are Required..!" });
     }
 
@@ -17,6 +17,13 @@ const signupController = async (req, res) => {
       return res
         .status(400)
         .json({ error: "Please Enter Valid Credentials..!" });
+    }
+
+    // contact validation
+    if (contact.length !== 10) {
+      return res
+        .status(400)
+        .json({ error: "Please Enter Valid Contact Number..!" });
     }
 
     // find user if it allready exists
@@ -37,6 +44,7 @@ const signupController = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      contact,
     });
 
     await newUser.save();

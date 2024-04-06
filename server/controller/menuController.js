@@ -3,18 +3,20 @@ const Menu = require("../models/Menu");
 // Create New Menu
 const createMenu = async (req, res) => {
   try {
-    const { item1, item2, description, price } = req.body;
+    const { dishName, item1, item2, image, special, price } = req.body;
 
     // validation
-    if (!item1 || !item2 || !price) {
+    if (!dishName || !item1 || !item2 || !image || !price) {
       return res.status(400).json({ error: "All Fields Are Required..!" });
     }
 
     // save new menu to DB
     const newMenu = await Menu({
+      dishName,
       item1,
       item2,
-      description,
+      image,
+      special,
       price,
     });
 
@@ -31,9 +33,43 @@ const createMenu = async (req, res) => {
 };
 
 // Get Menu
-const getMenu = () => {};
+const getMenu = async (req, res) => {
+  try {
+    const result = await Menu.find();
+    console.log(result);
+    console.log(result.length);
+    res.send(result);
+
+    // end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
+
+// Get single Menu By ID
+const getSingleMenu = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const menu = await Menu.findById({ _id: id });
+    console.log(menu);
+
+    if (menu) {
+      return res.status(200).json(menu);
+    } else {
+      return res.status(404).json({ error: "Not Found..!" });
+    }
+
+    //end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
 
 module.exports = {
   createMenu,
   getMenu,
+  getSingleMenu,
 };

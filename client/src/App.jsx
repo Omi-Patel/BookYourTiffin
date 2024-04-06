@@ -31,7 +31,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
         <Route
-          path="/booknow"
+          path="/booknow/:id"
           element={
             <ProtectedRoute>
               <BookNow />

@@ -7,19 +7,35 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [contact, setContact] = useState("");
 
   // navigation
   const navigate = useNavigate();
 
   // signup function
   const handleSubmit = async () => {
+    //client side validation
+    if (!name || !email || !password || !contact) {
+      return toast.error("Provide All The Data..!");
+    }
+
+    // email validation
+    if (!email.includes("@")) {
+      return toast.error("Please Enter Valid Credentials..!");
+    }
+
+    // contact validation
+    if (contact.length !== 10) {
+      return toast.error("Please Enter Valid Contact Number..!");
+    }
+
     // send data through backend API
     const response = await fetch(`http://localhost:3000/auth/signup`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, contact }),
     });
 
     const signupData = await response.json();
@@ -35,6 +51,7 @@ const Signup = () => {
       setName("");
       setEmail("");
       setPassword("");
+      setContact("");
 
       navigate("/signin");
     }
@@ -140,6 +157,31 @@ const Signup = () => {
                     ></input>
                   </div>
                 </div>
+
+                {/* Input 4 - Contact  */}
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="contact"
+                      className="text-base font-medium text-gray-900"
+                    >
+                      Contact Number
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      type="number"
+                      placeholder="1234567890"
+                      id="contact"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
+                    ></input>
+                  </div>
+                </div>
+
+                {/* Signup Button  */}
                 <div className="">
                   <Button
                     onClick={handleSubmit}

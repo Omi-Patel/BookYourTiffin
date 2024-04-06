@@ -12,6 +12,10 @@ const Signin = () => {
 
   // loginHandle function
   const loginHandle = async () => {
+    if (!email || !password) {
+      return toast.error("Provide All The Data..!");
+    }
+
     const response = await fetch(`http://localhost:3000/auth/login`, {
       method: "POST",
       headers: {
