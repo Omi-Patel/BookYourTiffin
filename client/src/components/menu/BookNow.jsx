@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Button, ButtonGroup } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Checkbox,
+  Input,
+  Link,
+} from "@nextui-org/react";
+
+import { toast } from "react-toastify";
 
 const BookNow = () => {
   let [count, setCount] = useState(1);
   const [singleMenu, setSingleMenu] = useState({});
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [location, setLocation] = useState("");
 
   const { id } = useParams();
 
@@ -18,6 +33,49 @@ const BookNow = () => {
 
       if (res) {
         setSingleMenu(res);
+      }
+
+      // end
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Send Order to DB
+  const makeOrder = async (count) => {
+    try {
+      const orderedBy = localStorage.getItem("userId");
+      const selectedMenu = id;
+      // console.log(count);
+
+      if (!location || !orderedBy || !selectedMenu) {
+        return toast.error("All Fields Are Required..!");
+      }
+
+      const response = await fetch(`http://localhost:3000/api/order`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          orderedBy,
+          selectedMenu,
+          location,
+          totalBox: count,
+        }),
+      });
+
+      // order response
+      const orderRes = await response.json();
+      console.log(orderRes);
+
+      // condition
+      if (orderRes) {
+        toast.success(orderRes.success);
+        setLocation("");
+        setCount(1);
+      } else {
+        toast.error(orderRes.error);
       }
 
       // end
@@ -181,9 +239,11 @@ const BookNow = () => {
                   )}
                 </p>
               </div>
+
+              {/* Counter  */}
+
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-400 mb-5">
-                {/* Counter  */}
-                <div>
+                {/* <div>
                   <ButtonGroup className="">
                     <Button
                       onClick={() => DecreaseCount()}
@@ -199,15 +259,119 @@ const BookNow = () => {
                       +
                     </Button>
                   </ButtonGroup>
-                </div>
+                </div> */}
               </div>
-              <div className="flex">
+              <div className="flex ">
                 <span className="title-font font-medium text-2xl text-gray-900">
                   Rs. {count * singleMenu.price}.00
                 </span>
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+
+                {/* Modal  */}
+
+                <Button
+                  className="flex ml-auto font-medium tracking-wider"
+                  onPress={onOpen}
+                  color="primary"
+                >
+                  Make Order!
+                </Button>
+                <Modal
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                  placement="top-center"
+                  backdrop="blur"
+                  className=""
+                >
+                  <ModalContent className="">
+                    {(onClose) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                          Your Details!
+                        </ModalHeader>
+                        <ModalBody>
+                          <Input
+                            autoFocus
+                            // endContent={
+                            //   <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                            // }
+                            label="Location"
+                            placeholder="Enter your Location"
+                            variant="bordered"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                          />
+                          {/* <Input
+                            // endContent={
+                            //   <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                            // }
+                            label="QTY."
+                            placeholder="Enter Total Tiffin"
+                            type="number"
+                            variant="bordered"
+                            value={1}
+                          /> */}
+
+                          {/* Counter  */}
+                          <div>
+                            <h3 className="m-1">QTY.</h3>
+                            <ButtonGroup className="">
+                              <Button
+                                onClick={() => DecreaseCount()}
+                                className="text-4xl pb-2 font-medium"
+                              >
+                                -
+                              </Button>
+                              <Button className="text-[16px] font-bold">
+                                {count}
+                              </Button>
+                              <Button
+                                onClick={() => IncreaseCount()}
+                                className="text-2xl pb-1 font-bold"
+                              >
+                                +
+                              </Button>
+                            </ButtonGroup>
+                          </div>
+
+                          <div className="flex py-2 px-1 justify-between">
+                            <Checkbox
+                              classNames={{
+                                label: "text-small",
+                              }}
+                            >
+                              Remember me
+                            </Checkbox>
+                            {/* <Link color="primary" href="#" size="sm">
+                              Forgot password?
+                            </Link> */}
+                          </div>
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button
+                            color="danger"
+                            variant="flat"
+                            onPress={onClose}
+                            className="font-medium tracking-wider"
+                          >
+                            Cancel !
+                          </Button>
+                          <Button
+                            onClick={() => makeOrder(count)}
+                            color="primary"
+                            // onPress={onClose}
+                            className="font-medium tracking-wider"
+                          >
+                            PAY Now : {count * singleMenu.price}.00
+                          </Button>
+                        </ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+
+                {/* <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                   Button
-                </button>
+                </button> */}
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg
                     fill="currentColor"

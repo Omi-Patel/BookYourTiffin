@@ -206,6 +206,10 @@ export default function App() {
           <NavbarMenuItem className="flex gap-4 m-4">
             {login ? (
               <Button
+                onClick={() => {
+                  logoutHandle();
+                  setLogin(false);
+                }}
                 color="danger"
                 className="font-bold text-[16px] tracking-wide"
               >

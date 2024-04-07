@@ -2,9 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+} from "flowbite-react";
+
+import dateFormat, { masks } from "dateformat";
 
 const Dashboard = () => {
   const [user, setUser] = useState([]);
+  const [order, setOrder] = useState([]);
 
   const getAllUsers = async () => {
     const allUsers = await fetch(`http://localhost:3000/auth/allusers`);
@@ -15,9 +26,25 @@ const Dashboard = () => {
     setUser(usersArr);
   };
 
+  const getOrders = async () => {
+    try {
+      const allOrders = await fetch(`http://localhost:3000/api/getorder`);
+
+      // receiving response
+      const orderRes = await allOrders.json();
+      console.log(orderRes);
+
+      setOrder(orderRes);
+      // end
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getAllUsers();
+    getOrders();
   }, []);
 
   return (
@@ -65,6 +92,54 @@ const Dashboard = () => {
           Total Users :{" "}
           <span className="text-blue-600 font-bold">0{user.length}</span>
         </span>
+      </div>
+
+      {/* Order Table  */}
+      <div className="m-4">
+        <h1 className="bg-slate-500 p-2 m-4 rounded-lg text-white font-bold tracking-widest text-[18px]">
+          Today's Orders
+        </h1>
+        <div>
+          <div className="overflow-x-auto">
+            <Table hoverable>
+              <TableHead>
+                <TableHeadCell>ORDERED BY</TableHeadCell>
+                <TableHeadCell>DISH NAME</TableHeadCell>
+                <TableHeadCell>QTY.</TableHeadCell>
+                <TableHeadCell>PRICE</TableHeadCell>
+                <TableHeadCell>TOTAL BILL</TableHeadCell>
+
+                <TableHeadCell>CONTACT</TableHeadCell>
+                <TableHeadCell>EMAIL</TableHeadCell>
+                <TableHeadCell>DATE</TableHeadCell>
+              </TableHead>
+              <TableBody className="divide-y">
+                {order.map((singleOrder, index) => (
+                  <TableRow
+                    key={index}
+                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                      {singleOrder.orderedBy.name}
+                    </TableCell>
+                    <TableCell>{singleOrder.selectedMenu.dishName}</TableCell>
+                    <TableCell>{singleOrder.totalBox}</TableCell>
+                    <TableCell>
+                      Rs. {singleOrder.selectedMenu.price}.00
+                    </TableCell>
+                    <TableCell>
+                      Rs.{" "}
+                      {singleOrder.selectedMenu.price * singleOrder.totalBox}.00
+                    </TableCell>
+                    <TableCell>{singleOrder.orderedBy.contact}</TableCell>
+                    <TableCell>{singleOrder.orderedBy.email}</TableCell>
+                    <TableCell>{dateFormat(singleOrder.createdAt)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </div>
     </div>
   );
