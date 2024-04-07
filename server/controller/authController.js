@@ -117,8 +117,27 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+// Get Single User
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const oneUser = await User.findById({ _id: id });
+    if (oneUser) {
+      return res.status(200).json(oneUser);
+    } else {
+      return res.status(404).json({ error: "User Not Found..!" });
+    }
+    // end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
+
 module.exports = {
   signupController,
   loginController,
   getAllUsers,
+  getUser,
 };

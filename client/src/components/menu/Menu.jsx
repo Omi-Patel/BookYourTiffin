@@ -28,7 +28,7 @@ const Menu = () => {
     getMenu();
   }, []);
   return (
-    <div className="h-full">
+    <div className="h-full  ">
       {/* <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto w-full text-center md:max-w-2xl">
@@ -87,7 +87,7 @@ const Menu = () => {
         </div>
       </section> */}
 
-      <div className="flex flex-wrap m-16  gap-10 justify-center items-center">
+      <div className="flex flex-wrap m-8  gap-10 justify-center items-center">
         {/* Card  */}
         {menu.map((menu, index) => (
           <div className="bg-slate-200 rounded-lg" key={index}>
@@ -125,7 +125,7 @@ const Menu = () => {
                 </div>
 
                 <p className="mt-3 text-md font-semibold text-gray-600">
-                  @ Price : {menu.price}
+                  @ Price : {menu.price} Rs.
                 </p>
                 <Button
                   type="button"

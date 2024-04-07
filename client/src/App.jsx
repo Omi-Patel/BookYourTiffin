@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BookNow from "./components/menu/BookNow";
 import Dashboard from "./components/menu/Dashboard";
 import CreateMenu from "./components/menu/CreateMenu";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -35,6 +36,15 @@ function App() {
           element={
             <ProtectedRoute>
               <BookNow />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile/:id"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
