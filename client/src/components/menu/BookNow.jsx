@@ -289,14 +289,10 @@ const BookNow = () => {
                           Your Details!
                         </ModalHeader>
                         <ModalBody>
-                          <Input
-                            autoFocus
-                            // endContent={
-                            //   <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                            // }
-                            label="Location"
+                          <input
+                            className="p-2 px-4 border-2 rounded-xl"
+                            // label="Location"
                             placeholder="Enter your Location"
-                            variant="bordered"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                           />

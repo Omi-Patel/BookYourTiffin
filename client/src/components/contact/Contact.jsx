@@ -1,8 +1,55 @@
 import { Button } from "@nextui-org/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
+
 const Contact = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const submitForm = (e) => {
+    e.preventDefault();
+
+    // Conditions
+    if (!name || !email || !message) {
+      return toast.info("Please Provide All The Data..!");
+    }
+
+    // console.log(name, email, message);
+
+    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+
+    try {
+      emailjs
+        .sendForm(
+          "tiffin_service",
+          "bookyourtiffin",
+          e.target,
+          "EVrTzfRVTIyzWQgRs"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            toast.success("Message Sent Successfully !");
+            setName("");
+            setEmail("");
+            setMessage("");
+          },
+          (error) => {
+            console.log(error.text);
+            toast.error("Try Again !");
+          }
+        );
+
+      //end
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -36,7 +83,11 @@ const Contact = () => {
                 <p className="mt-4 text-lg text-gray-600">
                   Our friendly team would love to hear from you.
                 </p>
-                <form action="" className="mt-8 space-y-6 ">
+                <form
+                  action=""
+                  onSubmit={submitForm}
+                  className="mt-8 space-y-6 "
+                >
                   <div className="grid w-full gap-y-4 md:gap-x-4 lg:grid-cols-2">
                     <div className="grid w-full  items-center gap-1.5">
                       <label
@@ -50,6 +101,9 @@ const Contact = () => {
                         type="text"
                         id="first_name"
                         placeholder="Your Name"
+                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -65,6 +119,9 @@ const Contact = () => {
                       type="text"
                       id="email"
                       placeholder="Email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -80,9 +137,13 @@ const Contact = () => {
                       id="message"
                       placeholder="Leave us a message"
                       cols={6}
+                      name="message"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                     />
                   </div>
                   <Button
+                    type="submit"
                     color="primary"
                     variant="ghost"
                     className="inline-flex  text-white border-0 py-4 px-6 bg-blue-500 hover:bg-blue-600 rounded-xl text-lg tracking-wide font-medium"

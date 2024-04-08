@@ -1,4 +1,5 @@
 const Order = require("../models/Order");
+// const User = require("../models/User");
 
 // Make an Order
 
@@ -50,7 +51,29 @@ const getOrder = async (req, res) => {
   }
 };
 
+// Get Single Order by ID
+const singleOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findById({ _id: id }).populate("orderedBy");
+
+    console.log(order);
+    // console.log(order.length);
+
+    if (order) {
+      return res.status(200).json(order);
+    } else {
+      return res.status(404).json({ error: "Order Not Found..!" });
+    }
+    // end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
+
 module.exports = {
   makeOrder,
   getOrder,
+  singleOrder,
 };

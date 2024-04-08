@@ -48,8 +48,32 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-screen">
-      <div className="flex justify-end m-6 p-2 ">
+    <div className="h-full">
+      <div className="flex justify-end m-6 p-2 gap-4">
+        <Button
+          variant="shadow"
+          color="primary"
+          className="font-bold tracking-wider text-[16px] px-0"
+        >
+          <NavLink to={"/allmenu"} className="flex gap-1  p-2 px-4">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span>All Menu !</span>
+          </NavLink>
+        </Button>
+
         <Button
           variant="shadow"
           color="success"
@@ -77,30 +101,55 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      <div className="border-2 m-4  flex flex-col gap-2 w-[250px] p-4 bg-slate-300 mx-auto justify-center items-center rounded-lg">
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-24 h-24"
-          >
-            <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
-          </svg>
-        </span>
-        <span className="text-xl font-medium tracking-wider">
-          Total Users :{" "}
-          <span className="text-blue-600 font-bold">0{user.length}</span>
-        </span>
+      <div className="flex flex-wrap  gap-10 justify-center items-center">
+        {/* Total Users  */}
+        <div className="border-2   flex flex-col gap-2 w-[250px] p-4 bg-slate-300  justify-center items-center rounded-lg">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-24 h-24"
+            >
+              <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+            </svg>
+          </span>
+          <span className="text-xl font-medium tracking-wider">
+            Total Users :{" "}
+            <span className="text-blue-600 font-bold">0{user.length}</span>
+          </span>
+        </div>
+
+        {/* Total Orders  */}
+        <div className="border-2   flex flex-col gap-2 w-[250px] p-4 bg-slate-300  justify-center items-center rounded-lg">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-24 h-24"
+            >
+              <path
+                fillRule="evenodd"
+                d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </span>
+          <span className="text-xl font-medium tracking-wider">
+            Total Orders :{" "}
+            <span className="text-blue-600 font-bold">0{order.length}</span>
+          </span>
+        </div>
       </div>
 
       {/* Order Table  */}
       <div className="m-4">
-        <h1 className="bg-slate-500 p-2 m-4 rounded-lg text-white font-bold tracking-widest text-[18px]">
-          Today's Orders
+        <h1 className="bg-slate-500 p-3 m-2 rounded-lg text-white font-bold tracking-widest text-[18px]">
+          # Today's Orders
         </h1>
         <div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto m-1 rounded-lg border-3">
             <Table hoverable>
               <TableHead>
                 <TableHeadCell>ORDERED BY</TableHeadCell>

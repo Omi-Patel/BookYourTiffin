@@ -21,6 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import BookNow from "./components/menu/BookNow";
 import Dashboard from "./components/menu/Dashboard";
 import CreateMenu from "./components/menu/CreateMenu";
+import AllMenuForAdmin from "./components/menu/AllMenuForAdmin";
+
 import Profile from "./components/profile/Profile";
 
 function App() {
@@ -63,6 +65,15 @@ function App() {
           element={
             <ProtectedRouteForAdmin>
               <CreateMenu />
+            </ProtectedRouteForAdmin>
+          }
+        />
+
+        <Route
+          path="/allmenu"
+          element={
+            <ProtectedRouteForAdmin>
+              <AllMenuForAdmin />
             </ProtectedRouteForAdmin>
           }
         />
