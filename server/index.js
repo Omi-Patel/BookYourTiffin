@@ -15,6 +15,14 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+  cors({
+    orgin: ["https://book-your-tiffin-orcin.vercel.app"],
+    methods: ["POST", "GET", "DELETE"],
+    credentials: true,
+  })
+);
+
 // available routes
 
 app.get("/", (req, res) => {
