@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    orgin: ["https://book-your-tiffin-online.vercel.app"],
+    orgin: ["https://book-your-tiffin-online.vercel.app/"],
     methods: ["POST", "GET", "DELETE"],
     credentials: true,
   })
