@@ -68,8 +68,30 @@ const getSingleMenu = async (req, res) => {
   }
 };
 
+// Delete Menu By ID
+const deleteMenu = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedMenu = await Menu.findByIdAndDelete({ _id: id });
+    console.log(deletedMenu);
+
+    if (deletedMenu) {
+      return res.status(200).json(deletedMenu);
+    } else {
+      return res.status(404).json({ error: "Not Found..!" });
+    }
+
+    // end
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error..!");
+  }
+};
+
 module.exports = {
   createMenu,
   getMenu,
   getSingleMenu,
+  deleteMenu,
 };

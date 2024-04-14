@@ -7,5 +7,6 @@ const router = express.Router();
 router.post("/createmenu", menuController.createMenu);
 router.get("/getmenu", menuController.getMenu);
 router.get("/getmenu/:id", menuController.getSingleMenu);
+router.delete("/deletemenu/:id", menuController.deleteMenu);
 
 module.exports = router;

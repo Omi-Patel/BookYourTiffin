@@ -20,15 +20,19 @@ const About = () => {
               src="https://dummyimage.com/720x600"
             /> */}
             <div className="text-center lg:w-2/3 w-full">
-              <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                Microdosing synth tattooed vexillologist
+              <h1 className="title-font sm:text-4xl text-3xl mb-6 font-medium text-gray-900">
+                Welcome to BookYourMeal-Online !
               </h1>
-              <p className="mb-8 leading-relaxed">
-                Meggings kinfolk echo park stumptown DIY, kale chips beard
-                jianbing tousled. Chambray dreamcatcher trust fund, kitsch vice
-                godard disrupt ramps hexagon mustache umami snackwave tilde
-                chillwave ugh. Pour-over meditation PBR&amp;B pickled ennui
-                celiac mlkshk freegan photo booth af fingerstache pitchfork.
+              <p className="mb-8 leading-relaxed tracking-wider text-[17px]">
+                At BookYourMeal-Online, we believe in providing more than just
+                meals; we deliver experiences that delight your taste buds and
+                nourish your soul. With a passion for cooking and a commitment
+                to quality, we strive to make every meal a memorable one for our
+                customers. Our journey began with a simple idea: to offer
+                convenient, nutritious, and delicious meals to busy individuals
+                and families. What started as a small venture has now grown into
+                a thriving community of food enthusiasts who trust us to provide
+                wholesome meals made with love and care.
               </p>
               <div className="flex justify-center">
                 <Button
@@ -63,10 +67,13 @@ const About = () => {
           </div>
         </section>
       </div>
+      <hr />
 
       {/* Features  */}
-      <div>
+      <div className="">
         {/* Features Section */}
+        {/* <h1 className="text-center text-4xl font-bold tracking-wider ">Features</h1> */}
+
         <div className="mx-auto my-16 max-w-7xl px-10 lg:px-8">
           <div className="grid grid-cols-1 gap-y-8 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-4">
             <div>
@@ -172,6 +179,108 @@ const About = () => {
           </div>
         </div>
       </div>
+      <hr />
+
+      {/* How It Works  */}
+      <div className="bg-[#212121]">
+        <section className="text-gray-100 body-font">
+          <div className="container px-12 py-16 mx-auto">
+            <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center ">
+              <h1 className="sm:text-3xl text-3xl font-medium title-font mb-2 text-gray-100">
+                How It Works ?
+              </h1>
+              <p className="lg:w-1/2 w-full leading-relaxed text-gray-300">
+                Let’s follow these simple steps to understand our ordering
+                process
+              </p>
+            </div>
+            <div className="flex flex-wrap -m-4">
+              <div className="xl:w-1/3 md:w-1/2 p-4">
+                <div className="border border-gray-200 p-6 rounded-lg bg-slate-300 ">
+                  <div className="w-24 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                    <h1 className="font-bold tracking-wider">Step : 1</h1>
+                  </div>
+                  <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                    Register / create account on our website
+                  </h2>
+                </div>
+              </div>
+              <div className="xl:w-1/3 md:w-1/2 p-4">
+                <div className="border border-gray-200 p-6 rounded-lg bg-slate-300">
+                  <div className="w-24 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                    <h1 className="font-bold tracking-wider">Step : 2</h1>
+                  </div>
+                  <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                    Log in through E-mail ID and Password.
+                  </h2>
+                </div>
+              </div>
+              <div className="xl:w-1/3 md:w-1/2 p-4">
+                <div className="border border-gray-200 p-6 rounded-lg bg-slate-300 ">
+                  <div className="w-24 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                    <h1 className="font-bold tracking-wider">Step : 3</h1>
+                  </div>
+                  <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                    Select your menu for the same day.
+                  </h2>
+                </div>
+              </div>
+              <div className="xl:w-1/3 md:w-1/2 p-4">
+                <div className="border border-gray-200 p-6 rounded-lg bg-slate-300 ">
+                  <div className="w-24 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                    <h1 className="font-bold tracking-wider">Step : 4</h1>
+                  </div>
+                  <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                    Pay through Debit Card, Credit Card, NetBanking ,UPI or
+                    PayTM.
+                  </h2>
+                </div>
+              </div>
+              <div className="xl:w-1/3 md:w-1/2 p-4">
+                <div className="border border-gray-200 p-6 rounded-lg bg-slate-300  ">
+                  <div className="w-24 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                    <h1 className="font-bold tracking-wider">Step : 5</h1>
+                  </div>
+                  <h2 className="text-lg text-gray-900 font-medium title-font mb-2">
+                    Yummy meals delivered to your Doorstep.
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mt-8">
+              <Button
+                color="primary"
+                variant="shadow"
+                className="inline-flex text-white border-0 py-2 px-0  hover:bg-blue-600 rounded-xl text-lg"
+              >
+                <NavLink
+                  to={"/menu"}
+                  className=" p-6 w-full flex gap-2 font-bold text-[18px] tracking-wide"
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 0 1 .75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 0 1 9.75 22.5a.75.75 0 0 1-.75-.75v-4.131A15.838 15.838 0 0 1 6.382 15H2.25a.75.75 0 0 1-.75-.75 6.75 6.75 0 0 1 7.815-6.666ZM15 6.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z"
+                        clipRule="evenodd"
+                      />
+                      <path d="M5.26 17.242a.75.75 0 1 0-.897-1.203 5.243 5.243 0 0 0-2.05 5.022.75.75 0 0 0 .625.627 5.243 5.243 0 0 0 5.022-2.051.75.75 0 1 0-1.202-.897 3.744 3.744 0 0 1-3.008 1.51c0-1.23.592-2.323 1.51-3.008Z" />
+                    </svg>
+                  </span>
+                  <span>Explore Menu!</span>
+                </NavLink>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <hr />
 
       {/* Statistics  */}
       <div>
@@ -222,9 +331,10 @@ const About = () => {
           </div>
         </section>
       </div>
+      <hr />
 
       {/* Our Team  */}
-      <div>
+      <div className="">
         <section className="text-gray-600 body-font">
           <div className="container px-16 py-24 mx-auto">
             <div className="flex flex-col text-center w-full mb-20">

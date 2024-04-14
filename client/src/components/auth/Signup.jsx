@@ -30,13 +30,16 @@ const Signup = () => {
     }
 
     // send data through backend API
-    const response = await fetch(`http://localhost:3000/auth/signup`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password, contact }),
-    });
+    const response = await fetch(
+      import.meta.env.VITE_MAIN_URL + `/auth/signup`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password, contact }),
+      }
+    );
 
     const signupData = await response.json();
     // console.log(signupData);

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "@nextui-org/react";
+import { toast } from "react-toastify";
 
 const AllMenuForAdmin = () => {
   const [menu, setMenu] = useState([]);
 
   const getMenu = async () => {
     try {
-      const resMenu = await fetch(`http://localhost:3000/api/getmenu`);
+      const resMenu = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/api/getmenu`
+      );
 
       // response
       const allMenu = await resMenu.json();
-      console.log(allMenu);
+      // console.log(allMenu);
 
       if (allMenu) {
         setMenu(allMenu);
@@ -19,6 +23,27 @@ const AllMenuForAdmin = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const deleteMenu = async (id) => {
+    // try {
+    //   const deletedMenu = await fetch(
+    //     import.meta.env.VITE_MAIN_URL + `/api/deletemenu/${id}`,
+    //     {
+    //       method: "DELETE",
+    //     }
+    //   );
+
+    //   // res
+    //   const allMenu = await deletedMenu.json();
+    //   // console.log(allMenu);
+    //   toast.success("Menu Deleted Successfully..!");
+    //   getMenu();
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    toast.info("Functionality Disabled For Now..!");
   };
 
   useEffect(() => {
@@ -103,7 +128,7 @@ const AllMenuForAdmin = () => {
 
                             {/* Special */}
                             <td className="px-6 py-4 uppercase">
-                              {item.special} 
+                              {item.special}
                             </td>
 
                             {/* Price  */}
@@ -111,9 +136,14 @@ const AllMenuForAdmin = () => {
 
                             {/* Delete Blog  */}
                             <td className="px-6 py-4">
-                              <button className=" px-4 py-1 rounded-lg text-white font-bold bg-red-500">
+                              <Button
+                                onClick={() => deleteMenu(item._id)}
+                                color="danger"
+                                variant="shadow"
+                                className=" px-4 py-1 rounded-lg text-white font-bold tracking-wider"
+                              >
                                 Delete
-                              </button>
+                              </Button>
                             </td>
                           </tr>
                         </tbody>

@@ -7,7 +7,9 @@ const Menu = () => {
 
   const getMenu = async () => {
     try {
-      const resMenu = await fetch(`http://localhost:3000/api/getmenu`);
+      const resMenu = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/api/getmenu`
+      );
 
       // response
       const allMenu = await resMenu.json();
@@ -86,6 +88,17 @@ const Menu = () => {
           </div>
         </div>
       </section> */}
+
+      <div>
+        <div className="bg-blue-100 p-2 m-2 rounded-lg">
+          <h1 className="text-4xl font-bold text-center tracking-wide">
+            Today's Menu <br />
+            <span className="font-medium text-2xl">
+              [Book Your Favorite One.]
+            </span>
+          </h1>
+        </div>
+      </div>
 
       <div className="flex flex-wrap m-8  gap-10 justify-center items-center">
         {/* Card  */}

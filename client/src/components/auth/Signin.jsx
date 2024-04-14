@@ -16,13 +16,16 @@ const Signin = () => {
       return toast.error("Provide All The Data..!");
     }
 
-    const response = await fetch(`http://localhost:3000/auth/login`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      import.meta.env.VITE_MAIN_URL + `/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     //receiving response
     const loginData = await response.json();

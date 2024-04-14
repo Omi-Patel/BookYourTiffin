@@ -18,7 +18,9 @@ const Dashboard = () => {
   const [order, setOrder] = useState([]);
 
   const getAllUsers = async () => {
-    const allUsers = await fetch(`http://localhost:3000/auth/allusers`);
+    const allUsers = await fetch(
+      import.meta.env.VITE_MAIN_URL + `/auth/allusers`
+    );
 
     //receiving response
     const usersArr = await allUsers.json();
@@ -28,7 +30,9 @@ const Dashboard = () => {
 
   const getOrders = async () => {
     try {
-      const allOrders = await fetch(`http://localhost:3000/api/getorder`);
+      const allOrders = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/api/getorder`
+      );
 
       // receiving response
       const orderRes = await allOrders.json();
@@ -155,6 +159,8 @@ const Dashboard = () => {
                 <TableHeadCell>ORDERED BY</TableHeadCell>
                 <TableHeadCell>DISH NAME</TableHeadCell>
                 <TableHeadCell>QTY.</TableHeadCell>
+                <TableHeadCell>LOCATION</TableHeadCell>
+
                 <TableHeadCell>PRICE</TableHeadCell>
                 <TableHeadCell>TOTAL BILL</TableHeadCell>
 
@@ -173,6 +179,8 @@ const Dashboard = () => {
                     </TableCell>
                     <TableCell>{singleOrder.selectedMenu.dishName}</TableCell>
                     <TableCell>{singleOrder.totalBox}</TableCell>
+                    <TableCell>{singleOrder.location}</TableCell>
+
                     <TableCell>
                       Rs. {singleOrder.selectedMenu.price}.00
                     </TableCell>

@@ -19,13 +19,16 @@ const CreateMenu = () => {
       return toast.error("Please Provide All The Data..!");
     }
 
-    const response = await fetch(`http://localhost:3000/api/createmenu`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ dishName, item1, item2, special, image, price }),
-    });
+    const response = await fetch(
+      import.meta.env.VITE_MAIN_URL + `/api/createmenu`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ dishName, item1, item2, special, image, price }),
+      }
+    );
 
     //receiving response
     const createdMenu = await response.json();

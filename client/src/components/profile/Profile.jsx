@@ -15,7 +15,9 @@ const Profile = () => {
 
   const getUser = async () => {
     try {
-      const oneUser = await fetch(`http://localhost:3000/auth/getuser/${id}`);
+      const oneUser = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/auth/getuser/${id}`
+      );
 
       // response
       const singleUser = await oneUser.json();

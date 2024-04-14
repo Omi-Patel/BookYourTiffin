@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import {
   Modal,
@@ -14,18 +14,22 @@ import {
 } from "@nextui-org/react";
 
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const BookNow = () => {
   let [count, setCount] = useState(1);
   const [singleMenu, setSingleMenu] = useState({});
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [location, setLocation] = useState("");
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
   const getMenuInfo = async () => {
     try {
-      const menuInfo = await fetch(`http://localhost:3000/api/getmenu/${id}`);
+      const menuInfo = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/api/getmenu/${id}`
+      );
 
       // response
       const res = await menuInfo.json();
@@ -41,6 +45,76 @@ const BookNow = () => {
     }
   };
 
+  // Open Razorpay
+  const handleOpenRazorpay = async (data) => {
+    const key = await axios.get(import.meta.env.VITE_MAIN_URL + `/api/getkey`);
+    // console.log(key.data.key, "KEY");
+
+    const options = {
+      key: key.data.key, // Enter the Key ID generated from the Dashboard
+      amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "BookYourMeal",
+      description: "BookYourMeal-Online",
+      image: "https://avatars.githubusercontent.com/u/122214228?v=4",
+      order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the previous step
+      // callback_url: import.meta.env.VITE_MAIN_URL + "/api/paymentvarification",
+      handler: function (response) {
+        // console.log(response, "Varification");
+        axios
+          .post(import.meta.env.VITE_MAIN_URL + `/api/paymentvarification`, {
+            response: response,
+          })
+          .then((res) => {
+            console.log(res, "Order Varified");
+            console.log("ORDER SAVED TO DB");
+            makeOrder(count);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+      prefill: {
+        name: "OM PATEL",
+        email: "ompate@example.com",
+        contact: "7777777777",
+      },
+      notes: {
+        address: "Book Your Meal.PVT-Ltd",
+      },
+      theme: {
+        color: "#3321cd",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  // Checkout Handler
+  const checkoutHandler = async (amount) => {
+    if (!location) {
+      return toast.error("Please Give Your Location..!");
+    }
+    console.log(amount);
+    const _data = { amount: amount };
+    axios
+      .post(import.meta.env.VITE_MAIN_URL + `/api/checkout`, _data)
+      .then((res) => {
+        console.log(res.data, "Order Data");
+        handleOpenRazorpay(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // console.log(order, "ORDER");
+
+    //
+  };
+
+  // checkoutHandler(count * singleMenu.price) -> onClick()
+
   // Send Order to DB
   const makeOrder = async (count) => {
     try {
@@ -52,18 +126,21 @@ const BookNow = () => {
         return toast.error("All Fields Are Required..!");
       }
 
-      const response = await fetch(`http://localhost:3000/api/order`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          orderedBy,
-          selectedMenu,
-          location,
-          totalBox: count,
-        }),
-      });
+      const response = await fetch(
+        import.meta.env.VITE_MAIN_URL + `/api/order`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            orderedBy,
+            selectedMenu,
+            location,
+            totalBox: count,
+          }),
+        }
+      );
 
       // order response
       const orderRes = await response.json();
@@ -74,6 +151,7 @@ const BookNow = () => {
         toast.success(orderRes.success);
         setLocation("");
         setCount(1);
+        navigate("/paymentsuccess");
       } else {
         toast.error(orderRes.error);
       }
@@ -352,7 +430,9 @@ const BookNow = () => {
                             Cancel !
                           </Button>
                           <Button
-                            onClick={() => makeOrder(count)}
+                            onClick={() =>
+                              checkoutHandler(count * singleMenu.price)
+                            }
                             color="primary"
                             // onPress={onClose}
                             className="font-medium tracking-wider"

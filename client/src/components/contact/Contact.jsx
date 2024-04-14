@@ -60,16 +60,17 @@ const Contact = () => {
         <div className="flex flex-col space-y-8 pb-10 pt-12 md:pt-24">
           <div className="mx-auto max-w-max rounded-full border bg-gray-50 p-1 px-3">
             <p className="text-center text-xs font-semibold leading-normal md:text-sm">
-              Share your thoughts
+              Share Your Thoughts !
             </p>
           </div>
           <p className="text-center text-3xl font-bold text-gray-900 md:text-5xl md:leading-10">
             Love to hear from you
           </p>
-          <p className="mx-auto max-w-4xl text-center text-base text-gray-600 md:text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-            veritatis voluptates neque itaque repudiandae sint, explicabo
-            assumenda quam ratione placeat?
+          <p className="mx-auto max-w-4xl text-center tracking-wide text-base text-gray-800 md:text-xl">
+            We love hearing from our customers! Whether you have feedback,
+            special requests, or simply want to say hello, don't hesitate to
+            reach out to us. Your input helps us continually improve and
+            innovate our services.
           </p>
         </div>
         <div className="mx-auto max-w-7xl py-12 md:py-24">
@@ -78,7 +79,7 @@ const Contact = () => {
             <div className="flex items-center justify-center">
               <div className="px-2 md:px-12">
                 <p className="text-2xl font-bold text-gray-900 md:text-4xl">
-                  Get in touch
+                  Get in Touch
                 </p>
                 <p className="mt-4 text-lg text-gray-600">
                   Our friendly team would love to hear from you.

@@ -24,6 +24,7 @@ import CreateMenu from "./components/menu/CreateMenu";
 import AllMenuForAdmin from "./components/menu/AllMenuForAdmin";
 
 import Profile from "./components/profile/Profile";
+import PaymentSuccess from "./components/menu/PaymentSuccess";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/paymentsuccess" element={<PaymentSuccess />} />
 
         <Route
           path="/profile/:id"
