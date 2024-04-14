@@ -10,11 +10,6 @@ connectToMongo();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-// middlewares
-app.use(express.json());
-// app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-
 app.use(
   cors({
     orgin: ["https://book-your-tiffin-orcin.vercel.app"],
@@ -22,6 +17,11 @@ app.use(
     credentials: true,
   })
 );
+
+// middlewares
+app.use(express.json());
+// app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 // available routes
 
