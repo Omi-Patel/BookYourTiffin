@@ -1,9 +1,11 @@
 import { Button } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import Loader from "../loader/Loader";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getMenu = async () => {
     try {
@@ -17,6 +19,7 @@ const Menu = () => {
 
       if (allMenu) {
         setMenu(allMenu);
+        setLoading(false);
       }
 
       // end
@@ -102,59 +105,63 @@ const Menu = () => {
 
       <div className="flex flex-wrap m-8  gap-10 justify-center items-center">
         {/* Card  */}
-        {menu.map((menu, index) => (
-          <div className="bg-slate-200 rounded-lg" key={index}>
-            <div className="w-[300px] rounded-md border-2">
-              <img
-                src={menu.image}
-                alt="Laptop"
-                className="h-[200px] w-full  object-cover p-2 rounded-xl overflow-hidden"
-              />
-              <div className="p-4">
-                <h1 className="inline-flex items-center text-xl bg-slate-300 py-1 px-3 rounded-full font-bold tracking-wider">
-                  {menu.dishName}
-                </h1>
-                {/* <p className="mt-3 text-sm text-gray-600">
+        {loading ? (
+          <Loader />
+        ) : (
+          menu.map((menu, index) => (
+            <div className="bg-slate-200 rounded-lg" key={index}>
+              <div className="w-[300px] rounded-md border-2">
+                <img
+                  src={menu.image}
+                  alt="Laptop"
+                  className="h-[200px] w-full  object-cover p-2 rounded-xl overflow-hidden"
+                />
+                <div className="p-4">
+                  <h1 className="inline-flex items-center text-xl bg-slate-300 py-1 px-3 rounded-full font-bold tracking-wider">
+                    {menu.dishName}
+                  </h1>
+                  {/* <p className="mt-3 text-sm text-gray-600">
                   {menu.item1}
                 </p>
                 <p className="mt-3 text-sm text-gray-600">
                   {menu.item2}
                 </p> */}
-                <div className="mt-4">
-                  <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
-                    # {menu.item1}
-                  </span>
-                  <br />
-                  <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
-                    # {menu.item2}
-                  </span>
-                  <br />
-                  {/* special item */}
-                  {menu.special && (
-                    <span className="mb-2 mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-[14px] font-semibold text-gray-900">
-                      + {menu.special}
+                  <div className="mt-4">
+                    <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                      # {menu.item1}
                     </span>
-                  )}
-                </div>
+                    <br />
+                    <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                      # {menu.item2}
+                    </span>
+                    <br />
+                    {/* special item */}
+                    {menu.special && (
+                      <span className="mb-2 mr-2 inline-block rounded-full bg-green-200 px-3 py-1 text-[14px] font-semibold text-gray-900">
+                        + {menu.special}
+                      </span>
+                    )}
+                  </div>
 
-                <p className="mt-3 text-md font-semibold text-gray-600">
-                  @ Price : {menu.price} Rs.
-                </p>
-                <Button
-                  type="button"
-                  className="mt-4 w-full   px-0 rounded-full py-1.5  font-semibold text-white shadow-sm hover:bg-blue/80 tracking-wider text-[16px]"
-                >
-                  <NavLink
-                    to={`/booknow/${menu._id}`}
-                    className="bg-blue-600 w-full py-4"
+                  <p className="mt-3 text-md font-semibold text-gray-600">
+                    @ Price : {menu.price} Rs.
+                  </p>
+                  <Button
+                    type="button"
+                    className="mt-4 w-full   px-0 rounded-full py-1.5  font-semibold text-white shadow-sm hover:bg-blue/80 tracking-wider text-[16px]"
                   >
-                    Book Now!
-                  </NavLink>
-                </Button>
+                    <NavLink
+                      to={`/booknow/${menu._id}`}
+                      className="bg-blue-600 w-full py-4"
+                    >
+                      Book Now!
+                    </NavLink>
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
