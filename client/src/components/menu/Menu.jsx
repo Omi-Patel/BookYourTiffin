@@ -106,7 +106,7 @@ const Menu = () => {
       <div className="flex flex-wrap m-8  gap-10 justify-center items-center">
         {/* Card  */}
         {loading ? (
-          <Loader />
+          <Loader size={"lg"} />
         ) : (
           menu.map((menu, index) => (
             <div className="bg-slate-200 rounded-lg" key={index}>

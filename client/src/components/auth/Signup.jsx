@@ -2,12 +2,14 @@ import { Button } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "../loader/Loader";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [contact, setContact] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // navigation
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const Signup = () => {
     if (signupData.error) {
       toast.error(signupData.error);
     } else {
+      setLoading(false);
       toast.success(signupData.success);
 
       setName("");
@@ -187,28 +190,35 @@ const Signup = () => {
                 {/* Signup Button  */}
                 <div className="">
                   <Button
-                    onClick={handleSubmit}
-                    color="primary"
+                    onClick={() => {
+                      handleSubmit();
+                      setLoading(true);
+                    }}
+                    color="success"
                     variant="shadow"
                     type="button"
                     className="inline-flex gap-2 items-center justify-center rounded-md  px-4 py-3 mt-2 leading-7 text-white hover:bg-blue/80 font-medium tracking-wide text-lg"
                   >
                     <span>Get Started</span>
 
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
+                    {loading ? (
+                      <Loader size={'sm'} />
+                    ) : (
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    )}
                   </Button>
                 </div>
               </div>
