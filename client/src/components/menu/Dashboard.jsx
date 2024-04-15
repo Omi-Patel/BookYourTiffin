@@ -12,10 +12,12 @@ import {
 } from "flowbite-react";
 
 import dateFormat, { masks } from "dateformat";
+import Loader from "../loader/Loader";
 
 const Dashboard = () => {
   const [user, setUser] = useState([]);
   const [order, setOrder] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getAllUsers = async () => {
     const allUsers = await fetch(
@@ -39,6 +41,7 @@ const Dashboard = () => {
       console.log(orderRes);
 
       setOrder(orderRes);
+      setLoading(false);
       // end
     } catch (error) {
       console.log(error);
@@ -179,30 +182,44 @@ const Dashboard = () => {
                 <TableHeadCell>DATE</TableHeadCell>
               </TableHead>
               <TableBody className="divide-y">
-                {order.map((singleOrder, index) => (
-                  <TableRow
-                    key={index}
-                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                  >
-                    <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                      {singleOrder.orderedBy.name}
-                    </TableCell>
-                    <TableCell>{singleOrder.selectedMenu.dishName}</TableCell>
-                    <TableCell>{singleOrder.totalBox}</TableCell>
-                    <TableCell>{singleOrder.location}</TableCell>
+                {loading ? (
+                  <div className="  p-4 w-full mx-auto">
+                    <Loader size={"lg"} />
+                  </div>
+                ) : (
+                  <>
+                    {order.map((singleOrder, index) => (
+                      <TableRow
+                        key={index}
+                        className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                      >
+                        <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          {singleOrder.orderedBy.name}
+                        </TableCell>
+                        <TableCell>
+                          {singleOrder.selectedMenu.dishName}
+                        </TableCell>
+                        <TableCell>{singleOrder.totalBox}</TableCell>
+                        <TableCell>{singleOrder.location}</TableCell>
 
-                    <TableCell>
-                      Rs. {singleOrder.selectedMenu.price}.00
-                    </TableCell>
-                    <TableCell>
-                      Rs.{" "}
-                      {singleOrder.selectedMenu.price * singleOrder.totalBox}.00
-                    </TableCell>
-                    <TableCell>{singleOrder.orderedBy.contact}</TableCell>
-                    <TableCell>{singleOrder.orderedBy.email}</TableCell>
-                    <TableCell>{dateFormat(singleOrder.createdAt)}</TableCell>
-                  </TableRow>
-                ))}
+                        <TableCell>
+                          Rs. {singleOrder.selectedMenu.price}.00
+                        </TableCell>
+                        <TableCell>
+                          Rs.{" "}
+                          {singleOrder.selectedMenu.price *
+                            singleOrder.totalBox}
+                          .00
+                        </TableCell>
+                        <TableCell>{singleOrder.orderedBy.contact}</TableCell>
+                        <TableCell>{singleOrder.orderedBy.email}</TableCell>
+                        <TableCell>
+                          {dateFormat(singleOrder.createdAt)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </>
+                )}
               </TableBody>
             </Table>
           </div>
