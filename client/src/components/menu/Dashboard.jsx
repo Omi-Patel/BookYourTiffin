@@ -53,7 +53,17 @@ const Dashboard = () => {
 
   return (
     <div className="h-full">
-      <div className="flex justify-end m-6 p-2 gap-4">
+      <div className="flex flex-wrap justify-end m-6 p-2 gap-4">
+        <Button
+          color="warning"
+          variant="shadow"
+          className="font-bold tracking-wider text-[16px] px-0"
+        >
+          <NavLink className="flex gap-1  p-2 px-4" to={"/allusers"}>
+            Show All Users
+          </NavLink>
+        </Button>
+
         <Button
           variant="shadow"
           color="primary"

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
+import Loader from "../loader/Loader";
 
 const AllMenuForAdmin = () => {
   const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getMenu = async () => {
     try {
@@ -17,6 +20,7 @@ const AllMenuForAdmin = () => {
 
       if (allMenu) {
         setMenu(allMenu);
+        setLoading(false);
       }
 
       // end
@@ -53,6 +57,32 @@ const AllMenuForAdmin = () => {
 
   return (
     <div>
+      {/* go back */}
+      <div className="bg-yellow-100 w-36 flex items-center justify-center p-2 rounded-full m-4">
+        <NavLink to={"/dashboard"}>
+          <div className="flex gap-2 items-center">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span>
+              {/* Text  */}
+              <h1 className="text-3xl font-medium">Back !</h1>
+            </span>
+          </div>
+        </NavLink>
+      </div>
+
       <div className="text-4xl text-center bg-blue-300 p-4 m-4 rounded-2xl font-medium tracking-wider">
         <h1>Dashboard For Menus !</h1>
       </div>
@@ -94,64 +124,75 @@ const AllMenuForAdmin = () => {
                 </thead>
 
                 {/* tbody  */}
-                {menu.length > 0 ? (
-                  <>
-                    {menu.map((item, index) => {
-                      return (
-                        <tbody key={index}>
-                          <tr className=" border-b-2 text-slate-900 font-medium bg-slate-200">
-                            {/* S.No   */}
-                            <td className="px-6 py-4">{index + 1}.</td>
-
-                            {/* Dish Thumbnail  */}
-                            <th scope="row" className="px-6 py-4 font-medium ">
-                              {/* thumbnail  */}
-                              <img
-                                className="w-16 rounded-lg"
-                                src={item.image}
-                                alt="thumbnail"
-                              />
-                            </th>
-
-                            {/* Dish Title  */}
-                            <td className="px-6 py-4">{item.dishName}</td>
-
-                            {/* Item-1 */}
-                            <td className="px-6 py-4 uppercase">
-                              {item.item1}
-                            </td>
-
-                            {/* Item-2 */}
-                            <td className="px-6 py-4 uppercase">
-                              {item.item2}
-                            </td>
-
-                            {/* Special */}
-                            <td className="px-6 py-4 uppercase">
-                              {item.special}
-                            </td>
-
-                            {/* Price  */}
-                            <td className="px-6 py-4">{item.price}/-</td>
-
-                            {/* Delete Blog  */}
-                            <td className="px-6 py-4">
-                              <Button
-                                onClick={() => deleteMenu(item._id)}
-                                color="danger"
-                                variant="shadow"
-                                className=" px-4 py-1 rounded-lg text-white font-bold tracking-wider"
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      );
-                    })}
-                  </>
+                {loading ? (
+                  <div className="  p-4 w-full mx-auto">
+                    <Loader size={"lg"} />
+                  </div>
                 ) : (
-                  <h1 className="text-white">Not Found</h1>
+                  <>
+                    {menu.length > 0 ? (
+                      <>
+                        {menu.map((item, index) => {
+                          return (
+                            <tbody key={index}>
+                              <tr className=" border-b-2 text-slate-900 font-medium bg-slate-200">
+                                {/* S.No   */}
+                                <td className="px-6 py-4">{index + 1}.</td>
+
+                                {/* Dish Thumbnail  */}
+                                <th
+                                  scope="row"
+                                  className="px-6 py-4 font-medium "
+                                >
+                                  {/* thumbnail  */}
+                                  <img
+                                    className="w-16 rounded-lg"
+                                    src={item.image}
+                                    alt="thumbnail"
+                                  />
+                                </th>
+
+                                {/* Dish Title  */}
+                                <td className="px-6 py-4">{item.dishName}</td>
+
+                                {/* Item-1 */}
+                                <td className="px-6 py-4 uppercase">
+                                  {item.item1}
+                                </td>
+
+                                {/* Item-2 */}
+                                <td className="px-6 py-4 uppercase">
+                                  {item.item2}
+                                </td>
+
+                                {/* Special */}
+                                <td className="px-6 py-4 uppercase">
+                                  {item.special}
+                                </td>
+
+                                {/* Price  */}
+                                <td className="px-6 py-4">{item.price}/-</td>
+
+                                {/* Delete Blog  */}
+                                <td className="px-6 py-4">
+                                  <Button
+                                    onClick={() => deleteMenu(item._id)}
+                                    color="danger"
+                                    variant="shadow"
+                                    className=" px-4 py-1 rounded-lg text-white font-bold tracking-wider"
+                                  >
+                                    Delete
+                                  </Button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <h1 className="text-white">Not Found</h1>
+                    )}
+                  </>
                 )}
               </table>
             </div>

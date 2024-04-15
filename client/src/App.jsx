@@ -25,6 +25,7 @@ import AllMenuForAdmin from "./components/menu/AllMenuForAdmin";
 
 import Profile from "./components/profile/Profile";
 import PaymentSuccess from "./components/menu/PaymentSuccess";
+import AllUsers from "./components/profile/AllUsers";
 
 function App() {
   return (
@@ -76,6 +77,15 @@ function App() {
           element={
             <ProtectedRouteForAdmin>
               <AllMenuForAdmin />
+            </ProtectedRouteForAdmin>
+          }
+        />
+
+        <Route
+          path="/allusers"
+          element={
+            <ProtectedRouteForAdmin>
+              <AllUsers />
             </ProtectedRouteForAdmin>
           }
         />

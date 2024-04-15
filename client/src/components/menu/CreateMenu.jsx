@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 
 const CreateMenu = () => {
   const [dishName, setDishName] = useState("");
@@ -54,6 +55,32 @@ const CreateMenu = () => {
 
   return (
     <div>
+      {/* go back */}
+      <div className="bg-yellow-100 w-36 flex items-center justify-center p-2 rounded-full m-4">
+        <NavLink to={"/dashboard"}>
+          <div className="flex gap-2 items-center">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span>
+              {/* Text  */}
+              <h1 className="text-3xl font-medium">Back !</h1>
+            </span>
+          </div>
+        </NavLink>
+      </div>
+
       <section className="rounded-md bg-black/80 ">
         <div className="flex items-center justify-center bg-white px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
