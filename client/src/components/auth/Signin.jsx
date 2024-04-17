@@ -8,8 +8,13 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  // const [guestUser, setGuestUser] = useState("");
 
   // console.log(loading);
+  const guestUserHandle = () => {
+    setEmail("guest@gmail.com");
+    setPassword("guestuser123");
+  };
 
   //navigate
   const navigate = useNavigate();
@@ -33,7 +38,7 @@ const Signin = () => {
 
     //receiving response
     const loginData = await response.json();
-    console.log(loginData);
+    // console.log(loginData);
 
     //condition
     if (loginData.error) {
@@ -134,38 +139,51 @@ const Signin = () => {
                     ></input>
                   </div>
                 </div>
-                <div className="">
-                  <Button
-                    onClick={() => {
-                      loginHandle();
-                      setLoading(true);
-                    }}
-                    color="success"
-                    variant="shadow"
-                    type="button"
-                    className="inline-flex gap-2 items-center justify-center rounded-md  px-4 py-3 mt-2 leading-7 text-white hover:bg-blue/80 font-medium tracking-wide text-lg"
-                  >
-                    <span>Let's Hope In</span>
+                <div className="flex justify-between items-center">
+                  <div className="">
+                    <Button
+                      onClick={() => {
+                        loginHandle();
+                        setLoading(true);
+                      }}
+                      color="success"
+                      variant="shadow"
+                      type="button"
+                      className="inline-flex gap-2 items-center justify-center rounded-md  px-3 py-3  leading-7 text-white hover:bg-blue/80 font-medium tracking-wide text-lg"
+                    >
+                      <span>Let's Hope In</span>
 
-                    {loading ? (
-                      <Loader size={"sm"} />
-                    ) : (
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    )}
-                  </Button>
+                      {loading ? (
+                        <Loader size={"sm"} />
+                      ) : (
+                        <span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                    </Button>
+                  </div>
+
+                  <div>
+                    <Button
+                      color="secondary"
+                      variant="flat"
+                      onClick={guestUserHandle}
+                      className="font-medium tracking-wide text-md"
+                    >
+                      Guest User..!
+                    </Button>
+                  </div>
                 </div>
               </div>
             </form>
