@@ -42,6 +42,7 @@ const Dashboard = () => {
 
       setOrder(orderRes);
       setLoading(false);
+
       // end
     } catch (error) {
       console.log(error);
@@ -165,6 +166,10 @@ const Dashboard = () => {
         <h1 className="bg-slate-500 p-3 m-2 rounded-lg text-white font-bold tracking-widest text-[18px]">
           # Today's Orders
         </h1>
+        <select name="" id="">
+          <option value="">Sort Orders :</option>
+          <option value="">Today's</option>
+        </select>
         <div>
           <div className="overflow-x-auto m-1 rounded-lg border-3">
             <Table hoverable>
