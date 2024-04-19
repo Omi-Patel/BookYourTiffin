@@ -81,7 +81,10 @@ export default function App() {
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
           <NavLink to={"/"}>
-            <p className="font-bold text-inherit tracking-widest">LOGO</p>
+            <p className="font-bold text-xl text-inherit tracking-widest bg-blue-200 rounded-lg p-2">
+              {" "}
+              getYourTiffin()
+            </p>
           </NavLink>
         </NavbarBrand>
         <NavbarMenu>
@@ -270,8 +273,8 @@ export default function App() {
       <NavbarContent className="hidden sm:flex gap-4  " justify="center">
         <NavbarBrand>
           <NavLink to={"/"}>
-            <p className="font-bold text-inherit tracking-widest text-xl">
-              LOGO
+            <p className="font-bold  text-inherit tracking-widest text-2xl border-1 border-black rounded-lg bg-blue-100 p-2">
+              getYourTiffin()
             </p>
           </NavLink>
         </NavbarBrand>

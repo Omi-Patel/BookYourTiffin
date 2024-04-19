@@ -1,6 +1,8 @@
 import { Button, Image } from "@nextui-org/react";
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import om from "../../../public/om.jpg";
+import dhruv from "../../../public/Dhruv.jpeg";
 
 const About = () => {
   useEffect(() => {
@@ -72,10 +74,12 @@ const About = () => {
       {/* Features  */}
       <div className="">
         {/* Features Section */}
-        {/* <h1 className="text-center text-4xl font-bold tracking-wider ">Features</h1> */}
+        <h1 className="text-center mt-4 sm:text-4xl text-2xl mb-6 font-medium text-gray-900">
+          Features Provided By Us.
+        </h1>
 
         <div className="mx-auto my-16 max-w-7xl px-10 lg:px-8">
-          <div className="grid grid-cols-1 gap-y-8 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-y-8 text-center sm:grid-cols-2 sm:gap-12 lg:grid-cols-3">
             <div>
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
                 <svg
@@ -96,9 +100,10 @@ const About = () => {
               <h3 className="mt-8 text-lg font-semibold text-black">
                 Secured Payments
               </h3>
-              <p className="mt-4 text-sm text-gray-600">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
+              <p className="mt-4 text-sm tracking-wide text-gray-600">
+                We partner with trusted payment gateways to offer a seamless and
+                secure payment experience. We support a variety of payment
+                methods to accommodate your preferences.
               </p>
             </div>
             <div>
@@ -121,9 +126,11 @@ const About = () => {
               <h3 className="mt-8 text-lg font-semibold text-black">
                 Fast & Easy to Load
               </h3>
-              <p className="mt-4 text-sm text-gray-600">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
+              <p className="mt-4 tracking-wide text-sm text-gray-600">
+                With a user-friendly interface and intuitive design, finding
+                what you need is quick and effortless. We believe that your time
+                is valuable, so we've prioritized performance to deliver a
+                hassle-free browsing experience.
               </p>
             </div>
             <div>
@@ -146,12 +153,14 @@ const About = () => {
               <h3 className="mt-8 text-lg font-semibold text-black">
                 Light & Dark Version
               </h3>
-              <p className="mt-4 text-sm text-gray-600">
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
+              <p className="mt-4 tracking-wide text-sm text-gray-600">
+                Giving you the flexibility to customize your browsing experience
+                according to your preferences. Whether you're browsing during
+                the day or night, we've got you covered with our light and dark
+                mode options.
               </p>
             </div>
-            <div>
+            {/* <div>
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-100">
                 <svg
                   className="h-9 w-9 text-red-600"
@@ -175,7 +184,7 @@ const About = () => {
                 Amet minim mollit non deserunt ullamco est sit aliqua dolor do
                 amet sint. Velit officia consequat duis enim velit mollit.
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -283,7 +292,7 @@ const About = () => {
       <hr />
 
       {/* Statistics  */}
-      <div>
+      {/* <div>
         <section className="text-gray-600 body-font">
           <div className="container px-16 py-24 mx-auto flex flex-wrap">
             <div className="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
@@ -331,40 +340,100 @@ const About = () => {
           </div>
         </section>
       </div>
-      <hr />
+      <hr /> */}
 
       {/* Our Team  */}
       <div className="">
         <section className="text-gray-600 body-font">
-          <div className="container px-16 py-24 mx-auto">
+          <div className="container  px-16 py-24 mx-auto">
             <div className="flex flex-col text-center w-full mb-20">
               <h1 className="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">
                 OUR TEAM
               </h1>
-              <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-                Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-                gentrify, subway tile poke farm-to-table. Franzen you probably
-                haven't heard of them.
+              <p className="lg:w-2/3 mx-auto leading-relaxed text-base tracking-wide">
+                Behind every line of code and every technical solution, our
+                developers and engineers work tirelessly to bring ideas to life.
+                With their expertise in various programming languages and
+                technologies, they ensure that our products and services meet
+                the highest standards of quality and innovation.
               </p>
             </div>
-            <div className="flex flex-wrap -m-4">
-              <div className="p-4 lg:w-1/2">
+            <div className="flex flex-wrap bg-blue-200 rounded -m-4 ">
+              <div className="p-4 flex items-center justify-center lg:w-1/2">
                 <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                   <Image
-                    width={240}
+                    width={200}
                     isZoomed
                     alt="team"
                     className="object-cover object-center rounded"
-                    src="https://dummyimage.com/206x206"
+                    src={om}
                   />
                   <div className="flex-grow sm:pl-8">
                     <h2 className="title-font font-medium text-lg text-gray-900">
-                      Holden Caulfield
+                      OM PATEL
                     </h2>
-                    <h3 className="text-gray-500 mb-3">UI Developer</h3>
+                    <h3 className="text-gray-500 mb-3">IT Student</h3>
+                    <p className="mb-4">Currently Pursuing Bachelor's in IT.</p>
+                    <span className="inline-flex">
+                      <a className="text-gray-500">
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-5 h-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                      </a>
+                      <a className="ml-2 text-gray-500">
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-5 h-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                      </a>
+                      <a className="ml-2 text-gray-500">
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-5 h-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+                        </svg>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 flex items-center justify-center lg:w-1/2">
+                <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                  <Image
+                    width={200}
+                    isZoomed
+                    alt="team"
+                    className="object-cover object-center rounded"
+                    src={dhruv}
+                  />
+                  <div className="flex-grow sm:pl-8">
+                    <h2 className="title-font font-medium text-lg text-gray-900">
+                      DHRUV PATEL
+                    </h2>
+                    <h3 className="text-gray-500 mb-3">Software Engineer</h3>
                     <p className="mb-4">
-                      DIY tote bag drinking vinegar cronut adaptogen squid fanny
-                      pack vaporware.
+                      Serving @TCS as a Software Developer.
                     </p>
                     <span className="inline-flex">
                       <a className="text-gray-500">
@@ -410,72 +479,10 @@ const About = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-4 lg:w-1/2">
+              {/* <div className="p-4 lg:w-1/2">
                 <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                   <Image
-                    width={240}
-                    isZoomed
-                    alt="team"
-                    className="object-cover object-center rounded"
-                    src="https://dummyimage.com/206x206"
-                  />
-                  <div className="flex-grow sm:pl-8">
-                    <h2 className="title-font font-medium text-lg text-gray-900">
-                      Alper Kamu
-                    </h2>
-                    <h3 className="text-gray-500 mb-3">Designer</h3>
-                    <p className="mb-4">
-                      DIY tote bag drinking vinegar cronut adaptogen squid fanny
-                      pack vaporware.
-                    </p>
-                    <span className="inline-flex">
-                      <a className="text-gray-500">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                        </svg>
-                      </a>
-                      <a className="ml-2 text-gray-500">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                        </svg>
-                      </a>
-                      <a className="ml-2 text-gray-500">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 lg:w-1/2">
-                <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
-                  <Image
-                    width={240}
+                    width={200}
                     isZoomed
                     alt="team"
                     className="object-cover object-center rounded"
@@ -537,7 +544,7 @@ const About = () => {
               <div className="p-4 lg:w-1/2">
                 <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                   <Image
-                    width={240}
+                    width={200}
                     isZoomed
                     alt="team"
                     className="object-cover object-center rounded"
@@ -595,7 +602,7 @@ const About = () => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
