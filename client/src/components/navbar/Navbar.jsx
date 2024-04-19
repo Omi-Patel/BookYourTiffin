@@ -273,7 +273,7 @@ export default function App() {
       <NavbarContent className="hidden sm:flex gap-4  " justify="center">
         <NavbarBrand>
           <NavLink to={"/"}>
-            <p className="font-bold  text-inherit tracking-widest text-2xl border-1 border-black rounded-lg bg-blue-100 p-2">
+            <p className="font-bold  text-inherit tracking-widest text-2xl  rounded-lg bg-blue-200 p-2">
               getYourTiffin()
             </p>
           </NavLink>
