@@ -59,7 +59,7 @@ const Signin = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="h-screen">
+    <div className="">
       <section>
         <div className=" flex items-center justify-center px-6 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md ">
