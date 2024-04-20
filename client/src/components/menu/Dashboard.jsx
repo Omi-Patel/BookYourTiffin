@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [user, setUser] = useState([]);
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [orderText, setOrderText] = useState("");
 
   const getAllUsers = async () => {
     const allUsers = await fetch(
@@ -41,9 +42,32 @@ const Dashboard = () => {
       console.log(orderRes);
 
       setOrder(orderRes);
+      setOrderText("ALL ORDERS");
       setLoading(false);
 
       // end
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTodayOrder = () => {
+    try {
+      // console.log(dateFormat(orderRes.createdAt).substring(0, 15));
+
+      const date = new Date();
+      // console.log(date.toString().substring(0, 15));
+
+      const filterOrder = order.filter((item) => {
+        return (
+          dateFormat(item.createdAt).substring(0, 15) ===
+          date.toString().substring(0, 15)
+        );
+      });
+
+      console.log(filterOrder);
+      setOrder(filterOrder);
+      setOrderText("TODAY'S ORDERS");
     } catch (error) {
       console.log(error);
     }
@@ -163,13 +187,36 @@ const Dashboard = () => {
 
       {/* Order Table  */}
       <div className="m-4">
-        <h1 className="bg-slate-500 p-3 m-2 rounded-lg text-white font-bold tracking-widest text-[18px]">
-          # Today's Orders
-        </h1>
-        <select name="" id="">
-          <option value="">Sort Orders :</option>
-          <option value="">Today's</option>
-        </select>
+        <div className="bg-slate-500 flex flex-wrap gap-4 justify-between items-center p-3 m-2 rounded-lg text-white font-bold tracking-widest text-[18px]">
+          {/* <span># All Orders</span> */}
+          <span>
+            <h1 className="p-3 lg:p-0"># {orderText}</h1>
+          </span>
+          <div className="flex flex-wrap  gap-4">
+            <span>
+              <Button
+                onClick={getOrders}
+                variant="faded"
+                color="primary"
+                className="font-medium "
+              >
+                Show All Orders
+              </Button>
+            </span>
+
+            <span>
+              <Button
+                onClick={getTodayOrder}
+                variant="faded"
+                color="secondary"
+                className="font-medium "
+              >
+                Show Today's Orders
+              </Button>
+            </span>
+          </div>
+        </div>
+
         <div>
           <div className="overflow-x-auto m-1 rounded-lg border-3">
             <Table hoverable>
