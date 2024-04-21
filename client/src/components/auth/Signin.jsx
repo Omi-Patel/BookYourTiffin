@@ -55,6 +55,10 @@ const Signin = () => {
     }
   };
 
+  const googleAuth = () => {
+    toast.info("Application is Under Development..!");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -189,6 +193,7 @@ const Signin = () => {
             </form>
             <div className="mt-6 space-y-3">
               <Button
+                onClick={googleAuth}
                 className="w-full font-semibold"
                 variant="flat"
                 color="primary"
@@ -207,6 +212,7 @@ const Signin = () => {
                 Sign in with Google
               </Button>
               <Button
+                onClick={googleAuth}
                 color="primary"
                 variant="flat"
                 className="w-full font-semibold"

@@ -65,6 +65,10 @@ const Signup = () => {
     // end of handlesubmin
   };
 
+  const googleAuth = () => {
+    toast.info("Application is Under Development..!");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -202,7 +206,7 @@ const Signup = () => {
                     <span>Get Started</span>
 
                     {loading ? (
-                      <Loader size={'sm'} />
+                      <Loader size={"sm"} />
                     ) : (
                       <span>
                         <svg
@@ -225,6 +229,7 @@ const Signup = () => {
             </form>
             <div className="mt-6 space-y-3">
               <Button
+                onClick={googleAuth}
                 className="w-full font-semibold"
                 variant="flat"
                 color="primary"
@@ -243,6 +248,7 @@ const Signup = () => {
                 Sign up with Google
               </Button>
               <Button
+                onClick={googleAuth}
                 className="w-full font-semibold"
                 variant="flat"
                 color="primary"

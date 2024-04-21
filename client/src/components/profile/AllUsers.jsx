@@ -19,6 +19,7 @@ const AllUsers = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllUsers();
   }, []);
 
